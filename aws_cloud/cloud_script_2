@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# This script is used for accessing objects in the cloud
+
+BUCKET_NAME="techcrush-project-26697"
+
+function upload_file() {
+    read -p "Enter file path to upload: " file
+    aws s3 cp "$file" s3://$BUCKET_NAME/
+}
+
+function download_file() {
+    read -p "Enter file name to download: " file
+    aws s3 cp s3://$BUCKET_NAME/$file .
+}
+
+function list_files() {
+    aws s3 ls s3://$BUCKET_NAME/
+}
+
+function delete_file() {
+    read -p "Enter file name to delete: " file
+    aws s3 rm s3://$BUCKET_NAME/$file
+}
+
+function menu() {
+    echo "==== Cloud File Storage System ===="
+    echo "1. Upload File"
+    echo "2. Download File"
+    echo "3. List Files"
+    echo "4. Delete File"
+    echo "5. Exit"
+    echo "==================================="
+    read -p "Choose an option [1-5]: " choice
+
+    case $choice in
+        1) upload_file ;;
+        2) download_file ;;
+        3) list_files ;;
+        4) delete_file ;;
+        5) exit 0 ;;
+        *) echo "Invalid option";;
+    esac
+}
+
+while true; do
+    menu
+done

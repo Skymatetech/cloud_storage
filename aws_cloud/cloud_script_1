@@ -1,0 +1,16 @@
+#!/bin/bash
+
+BUCKET_NAME="techcrush-project-$RANDOM"
+REGION="eu-west-1"
+
+aws s3api create-bucket \
+  --bucket $BUCKET_NAME \
+  --region $REGION \
+  --create-bucket-configuration LocationConstraint=$REGION
+
+if aws s3api head-bucket --bucket $BUCKET_NAME 2>/dev/null; then
+  echo "✅ Bucket '$BUCKET_NAME' created and verified successfully!"
+else
+  echo "❌ Bucket creation failed or access denied."
+fi
+

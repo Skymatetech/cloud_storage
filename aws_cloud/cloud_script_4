@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# This script is used for tracking login
+
+
+# ===== CONFIGURATION =====
+BUCKET_NAME="techcrush-project-26697"
+TIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S')
+LOG_FILE="actions-$TIMESTAMP.log"
+
+# ===== LOG FUNCTION =====
+log_action() {
+  echo "$(date '+%Y-%m-%d %H:%M:%S') - $1 - $2 - $3" >> "$LOG_FILE"
+}
+
+# ===== UPLOAD FUNCTION =====
+upload_file() {
+  FILE=$1
+  if aws s3 cp "$FILE" "s3://$BUCKET_NAME/"; then
+    log_action "UPLOAD" "$FILE" "SUCCESS"
+  else
+    log_action "UPLOAD" "$FILE" "FAILURE"
+  fi
+  aws s3 cp "$LOG_FILE" "s3://$BUCKET_NAME/logs/$LOG_FILE"
+}
+
+# ===== DOWNLOAD FUNCTION =====
+download_file() {
+  FILE=$1
+  if aws s3 cp "s3://$BUCKET_NAME/$FILE" "./$FILE"; then
+    log_action "DOWNLOAD" "$FILE" "SUCCESS"
+  else
+    log_action "DOWNLOAD" "$FILE" "FAILURE"
+  fi
+  aws s3 cp "$LOG_FILE" "s3://$BUCKET_NAME/logs/$LOG_FILE"
+}
+
+# ===== LIST FUNCTION =====
+list_files() {
+  aws s3 ls "s3://$BUCKET_NAME/"
+  log_action "LIST" "ALL_FILES" "SUCCESS"
+  aws s3 cp "$LOG_FILE" "s3://$BUCKET_NAME/logs/$LOG_FILE"
+}
+
+# ===== DELETE FUNCTION =====
+delete_file() {
+  FILE=$1
+  if aws s3 rm "s3://$BUCKET_NAME/$FILE"; then
+    log_action "DELETE" "$FILE" "SUCCESS"
+  else
+    log_action "DELETE" "$FILE" "FAILURE"
+  fi
+  aws s3 cp "$LOG_FILE" "s3://$BUCKET_NAME/logs/$LOG_FILE"
+}
+
+# ===== MENU INTERFACE =====
+echo "Choose an action:"
+echo "1. Upload file"
+echo "2. Download file"
+echo "3. List files"
+echo "4. Delete file"
+read -p "Enter option (1-4): " OPTION
+
+case $OPTION in
+  1)
+    read -p "Enter filename to upload: " FILE
+    upload_file "$FILE"
+    ;;
+  2)
+    read -p "Enter filename to download: " FILE
+    download_file "$FILE"
+    ;;
+  3)
+    list_files
+    ;;
+  4)
+    read -p "Enter filename to delete: " FILE
+    delete_file "$FILE"
+    ;;
+  *)
+    echo "Invalid option"
+    ;;
+esac
+
