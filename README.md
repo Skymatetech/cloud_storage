@@ -18,12 +18,13 @@ This is a simple cloud-based file storage system — inspired by services like D
 📁 Folder Structure
 
 .
-├── aws_cloud # Main folder containg  Bash script to interact with S3
-├── actions.log # Log file (generated)
-├── .github/
-│ └── workflows/
-│ └── s3_automation.yml # GitHub Actions workflow file
-└── README.md # Project documentation
+aws_cloud: Main folder containg  Bash script to interact with S3
+
+actions.log: Log file (generated)
+
+.github/workflows/s3_automation.yml: GitHub Actions workflow file
+
+README.md: Project documentation
 
 yaml
 Copy
