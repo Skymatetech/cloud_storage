@@ -1,10 +1,10 @@
-# ☁️ Cloud-Based File Storage System Using Bash & AWS CLI
+☁️ Cloud-Based File Storage System Using Bash & AWS CLI
 
 This is a simple cloud-based file storage system — inspired by services like Dropbox and Google Drive — implemented using Bash scripting and AWS S3. It allows users to upload, download, list, and delete files from an S3 bucket, with support for logging and GitHub Actions automation.
 
 ---
 
-## 🎯 Project Objectives
+🎯 Project Objectives
 
 - ✅ Upload files to S3
 - ✅ Download files from S3
@@ -15,7 +15,7 @@ This is a simple cloud-based file storage system — inspired by services like D
 
 ---
 
-## 📁 Folder Structure
+📁 Folder Structure
 
 .
 ├── aws_cloud # Main folder containg  Bash script to interact with S3
@@ -31,9 +31,9 @@ Edit
 
 ---
 
-## 🚀 Getting Started
+🚀 Getting Started
 
-### 1️⃣ Prerequisites
+1️⃣ Prerequisites
 
 - AWS account with S3 and IAM access
 - AWS CLI installed and configured (`aws configure`)
@@ -41,7 +41,7 @@ Edit
 
 ---
 
-### 2️⃣ Clone the Repository
+2️⃣ Clone the Repository
 
 ```bash
 git clone https://github.com/your-username/your-repo.git
@@ -114,7 +114,7 @@ This project is for learning/demo purposes only.
 
 ---
 
-### ✅ Next Steps
+✅ Next Steps
 
 - Save this file as `README.md` in your project root.
 - Commit and push it:
